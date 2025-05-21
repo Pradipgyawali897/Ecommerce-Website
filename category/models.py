@@ -9,5 +9,5 @@ class Category(models.Model):
         verbose_name="categoty"
         verbose_name_plural="cateogries"
     def __str__(self):
-        return self.name
+        return self.slug
     
