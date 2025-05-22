@@ -26,25 +26,44 @@
         <figure class="itemside align-items-center">
             <div class="aside"><img src={{cart_iteam.product.images.url}}  class="img-sm"></div>
             <figcaption class="info">
-                <a href="#" class="title text-dark">{{cart_iteam.product.product_name}}</a>
+                <a href="{{cart_iteam.product.get_url}}" class="title text-dark">{{cart_iteam.product.product_name}}</a>
                 <p class="text-muted small">Colour: 25 Mpx <br> Size: Canon</p>
             </figcaption>
         </figure>
     </td>
-    <td> 
-        <!-- col.// -->
-                    <div class="col"> 
-                        <div class="input-group input-spinner">
-                            <div class="input-group-prepend">
-                            <button class="btn btn-light" type="button" id="button-plus"> <i class="fa fa-minus"></i> </button>
-                            </div>
-                            <input type="text" class="form-control"  value="{{cart_iteam.quantity}}">
-                            <div class="input-group-append">
-                            <a href="{% url 'add_cart' cart_iteam.product.id %}" class="btn btn-light" type="button" id="button-minus"> <i class="fa fa-plus"></i> </a>
-                            </div>
-                        </div> <!-- input-group.// -->
-                    </div> <!-- col.// -->
-    </td>
+   <td>
+    <div class="col">
+        <div class="input-group input-group-sm input-spinner" style="max-width: 120px;">
+            <!-- Minus Button -->
+            <div class="input-group-prepend">
+                <a href="{% url 'remove_cart' cart_iteam.product.id %}" 
+                   class="btn btn-light" 
+                   id="button-decrease" 
+                   aria-label="Decrease quantity" 
+                   title="Decrease quantity">
+                    <i class="fa fa-minus"></i>
+                </a>
+            </div>
+            <!-- Quantity Display -->
+            <input type="text" 
+                   class="form-control text-center" 
+                   value="{{ cart_iteam.quantity }}" 
+                   readonly 
+                   aria-label="Current quantity" 
+                   style="max-width: 60px;">
+            <!-- Plus Button -->
+            <div class="input-group-append">
+                <a href="{% url 'add_cart' cart_iteam.product.id %}" 
+                   class="btn btn-light" 
+                   id="button-increase" 
+                   aria-label="Increase quantity" 
+                   title="Increase quantity">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</td>
     <td> 
         <div class="price-wrap"> 
             <var class="price">${{cart_iteam.get_total}}</var> 
@@ -52,7 +71,7 @@
         </div> <!-- price-wrap .// -->
     </td>
     <td class="text-right"> 
-    <a href="" class="btn btn-danger"> Remove</a>
+    <a href="{% url "remove_cart_iteams" cart_iteam.product.id %}" class="btn btn-danger"> Remove</a>
     </td>
 </tr>
 {% endfor %}
@@ -71,18 +90,18 @@
             </dl>
             <dl class="dlist-align">
               <dt>Tax:</dt>
-              <dd class="text-right"> $10.00</dd>
+              <dd class="text-right"> $ 0</dd>
             </dl>
             <dl class="dlist-align">
               <dt>Total:</dt>
-              <dd class="text-right text-dark b"><strong>$59.97</strong></dd>
+              <dd class="text-right text-dark b"><strong>${{total}}</strong></dd>
             </dl>
             <hr>
             <p class="text-center mb-3">
                 <img src="{% static 'images/misc/payments.png' %}" height="26">
             </p>
             <a href="./place-order.html" class="btn btn-primary btn-block"> Checkout </a>
-            <a href="./store.html" class="btn btn-light btn-block">Continue Shopping</a>
+            <a href="{% url "store" %}" class="btn btn-light btn-block">Continue Shopping</a>
         </div> <!-- card-body.// -->
         </div> <!-- card.// -->
 
