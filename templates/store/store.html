@@ -2,10 +2,18 @@
 {% load static %}
 {% block content %}
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
 <!-- ========================= SECTION PAGETOP ========================= -->
 <section class="section-pagetop bg">
 <div class="container">
+	{% if 'search' in request.path %}
+<h2 class="title-page d-flex align-items-center gap-2 fw-semibold text-dark">
+  <i class="bi bi-search text-primary"></i> Search Results
+</h2>
+	{% else %}
 	<h2 class="title-page">Our Store</h2>
+	{% endif %}
 </div> <!-- container //  -->
 </section>
 <!-- ========================= SECTION INTRO END// ========================= -->
@@ -28,7 +36,7 @@
 		<div class="filter-content collapse show" id="collapse_1" style="">
 			<div class="card-body">
 				<ul class="list-menu">
-                    <li><a href="{% url 'store' %}">All</a></li>
+                    <li><a class="list-menu" href="{% url 'store' %}">All</a></li>
                     {% for category in link %}
 				        <li><a href="{% url 'products_by_category' category %}">{{category.name}}</a></li>
 				    {%endfor%}
@@ -117,7 +125,7 @@
 </header><!-- sect-heading -->
 
 <div class="row">
-
+{% if count > 0 %}
 {% for product in products %}
 	<div class="col-md-4">
 		<figure class="card card-product-grid">
@@ -132,15 +140,25 @@
 					</div>
 				</div>
 				{% if product.stock %}
-				<a href="{% url "add_cart" product.id %}" class="btn btn-block btn-primary">Add to cart</a>
+				<form action="{% url "product_view" product.category.slug product.slug %}" method="POST">
+					{% csrf_token %}
+				<button  class="btn btn-block btn-primary">View product Detail</button>
+				</form>
 				{% else %}
+
 				<p style="color: white; background: #e74c3c; padding: 10px 20px; border-radius: 8px; font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block;">Product out of stock</p>
 \
 				{% endif %}
 			</figcaption>
 		</figure>
 	</div>
-{% endfor %}
+	{% endfor %}
+	{% else %}
+		<h2 class="title-page d-flex align-items-center gap-2 fw-semibold text-dark">
+  			<i class="bi bi-search text-primary"></i> No Results Be found
+		</h2>
+	{% endif %}
+
 
 </div> <!-- row end.// -->
 

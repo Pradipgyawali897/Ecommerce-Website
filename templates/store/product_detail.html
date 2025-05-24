@@ -17,7 +17,8 @@
         </aside>
         <main class="col-md-6 border-left">
 <article class="content-body">
-
+<form action="{% url "add_cart" product.id %}" method='POST'>
+  {% csrf_token %}
 <h2 class="title">{{product.product_name}}</h2>
 
 <div class="mb-3"> 
@@ -30,56 +31,44 @@
 <hr>
     <div class="row">
         <div class="item-option-select">
-            <h6>Choose Color</h6>
-            <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-light">
-                <input type="radio" name="radio_color"> Silver
-              </label>
-              <label class="btn btn-light">
-                <input type="radio" name="radio_color" > Gray
-              </label>
-              <label class="btn btn-light active">
-                <input type="radio" name="radio_color checked"> Gold
-              </label>
-              <label class="btn btn-light">
-                <input type="radio" name="radio_color"> Black
-              </label>
-            </div> 
+          {% if colour.count %}
+           <h6>Choose Color</h6>
+           <p> {{ colour.count }} colour option avilable</p>
+
+<select name="colour" class="form-control" required>
+    <option value="" disabled selected hidden>Please select a colour</option>
+    {% for i in colour %}
+      <option value="{{ i.variation_value }}">{{ i.variation_value }}</option>
+    {% endfor %}
+</select>
+{% endif %}
+
         </div>
     </div> <!-- row.// -->
-    <div class="row">
+   <div class="row">
         <div class="item-option-select">
-            <h6>Select Size</h6>
-            <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-light">
-                <input type="radio" name="radio_color"> S
-              </label>
-              <label class="btn btn-light active">
-                <input type="radio" name="radio_color" checked> M
-              </label>
-              <label class="btn btn-light">
-                <input type="radio" name="radio_color"> L
-              </label>
-              <label class="btn btn-light">
-                <input type="radio" name="radio_color"> XL
-              </label>
-            </div> 
+          {% if size.count %}
+           <h6>Select size</h6>
+            <p> {{ size.count }} size option avilable</p>
+           <select name="colour" class="form-control" required>
+    <option value="" disabled selected hidden>Please select Size</option>
+    {% for i in size %}
+        <option value="{{ i.variation_value }}">{{ i.variation_value }}</option>
+    {% endfor %}
+</select>
+{% endif %}
+            
         </div>
-    </div> <!-- row.// -->
+    </div> <!-- row.// --> 
     <hr>
     {% if product.stock <= 0 %}
     <h5 class="text-danger">Product out of stock </h5>
     {% else %}
-    {% if in_cart %}
-     <a href="{% url 'cart' %}" class="btn btn-primary" id="button-view-cart" aria-label="View cart">
-    Product is in cart
-    </a>
- 
-    {% else %}
-    <a href="{% url "add_cart" product.id %}" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+   
+         <button type="submit"  class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </button>
     {% endif %}
-    {% endif %}
-</article> <!-- product-info-aside .// -->
+</article> 
+</form>
         </main> <!-- col.// -->
     </div> <!-- row.// -->
 </div> <!-- card.// -->
