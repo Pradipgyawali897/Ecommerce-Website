@@ -57,20 +57,22 @@
         </form> <!-- search-wrap .end// -->
     </div> <!-- col.// -->
     <div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
-                <div class="d-flex justify-content-end mb-3 mb-lg-0">
-                    <div class="widget-header">
-                        <small class="title text-muted">Welcome guest!</small>
-                        <div> 
-                            <a href="./signin.html">Sign in</a> <span class="dark-transp"> | </span>
-                            <a href="./register.html"> Register</a>
+                <div class="widget-header" style="text-align: left;">
+                    {% if not user.is_authenticated %}
+                        <h4 class="title text-muted">Welcome guest!</h4>
+                        <div style="margin-top: 10px;">
+                            <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+                            <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
                         </div>
-                    </div>
-                    <a href="{% url "cart" %}" class="widget-header pl-3 ml-3">
-                        <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
-                        <span class="badge badge-pill badge-danger notify">{{cart_count}}</span>
-                    </a>
-                </div> <!-- widgets-wrap.// -->
-            </div> <!-- col.// -->
+                    {% else %}
+                        <h5 class="title text-muted">Welcome, {{ user.username }}!</h5>
+                        <form action="{% url 'logout' %}" method="GET" style="margin-top: 10px;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Logout</button>
+                        </form>
+                    {% endif %}
+                </div>          
+              </div> <!-- col.// -->
 </div> <!-- row.// -->
     </div> <!-- container.// -->
 </section> <!-- header-main .// -->

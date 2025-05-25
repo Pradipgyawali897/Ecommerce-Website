@@ -8,7 +8,7 @@
 *.log
 *.log.*
 *.sig
-
+.env
 pkg/
 src/
 media

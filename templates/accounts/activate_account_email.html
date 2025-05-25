@@ -1,0 +1,12 @@
+{% autoescape on %}
+Hi {{ user.first_name|safe }},
+
+Thank you for registering! Please click the link below to activate your account:
+
+<a href="https://{{ domain }}{% url 'activate' uidb64=uid token=token %}">Activate Your Account</a>
+
+If you did not make this request, please change your password immediately to secure your account.
+
+Best regards,
+Your Team
+{% endautoescape %}

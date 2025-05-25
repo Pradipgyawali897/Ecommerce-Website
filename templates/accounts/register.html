@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+  .form-container {
+    max-width: 500px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    color: #333;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    color: #444;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.65rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+
+  input:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #4a90e2;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .btn-submit:hover {
+    background-color: #357ab8;
+  }
+
+  .errorlist {
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+    color: #d9534f;
+    font-size: 0.9rem;
+    list-style: none;
+    padding-left: 0;
+  }
+</style>
+
+<div class="form-container">
+  <h2>Register</h2>
+  <form method="post" action="{% url 'register' %}">
+    {% csrf_token %}
+
+    <!-- Username -->
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" value="{{ form.username.value|default:'' }}">
+    {{ form.username.errors }}
+
+    <!-- First Name -->
+    <label for="first_name">First Name</label>
+    <input type="text" name="first_name" id="first_name" value="{{ form.first_name.value|default:'' }}">
+    {{ form.first_name.errors }}
+
+    <!-- Last Name -->
+    <label for="last_name">Last Name</label>
+    <input type="text" name="last_name" id="last_name" value="{{ form.last_name.value|default:'' }}">
+    {{ form.last_name.errors }}
+
+    <!-- Email -->
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" value="{{ form.email.value|default:'' }}">
+    {{ form.email.errors }}
+
+    <!-- Phone -->
+    <label for="phone_number">Phone Number</label>
+    <input type="text" name="phone_number" id="phone_number" value="{{ form.phone_number.value|default:'' }}">
+    {{ form.phone_number.errors }}
+
+    <!-- Password -->
+    <label for="password1">Password</label>
+    <input type="password" name="password1" id="password1">
+    {{ form.password1.errors }}
+
+    <!-- Confirm Password -->
+    <label for="password2">Confirm Password</label>
+    <input type="password" name="password2" id="password2">
+    {{ form.password2.errors }}
+
+    <button type="submit" class="btn-submit">Create Account</button>
+  </form>
+</div>
+{% endblock %}
