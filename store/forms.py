@@ -6,6 +6,6 @@ class MyProductForm(ModelForm):
     class Meta:
         model=Product
         fields=['product_name','product_description','price','images','stock','category']
-        widgets = {
-            'image': forms.FileInput(attrs={'accept': 'image/*'}), 
-        }
+        
+
+    

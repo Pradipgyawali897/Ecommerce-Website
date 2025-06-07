@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link href="{% static 'css/product-form.css' %}" rel="stylesheet" type="text/css"/>
+
+<div class="form-container">
+    <div class="form-header">
+        <div class="form-icon">
+            <i class="fas fa-plus-circle"></i>
+        </div>
+        <h1>Add New Product</h1>
+        <p>Fill in the details below to add a new product to your inventory</p>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="product-form" id="productForm">
+        {% csrf_token %}
+        
+        <div class="form-grid">
+            {% for field in form %}
+                {% if field.name == 'images' %}
+                    <!-- Special handling for images field -->
+                    <div class="form-group full-width">
+                        <label for="{{ field.id_for_label }}" class="form-label">
+                            <i class="fas fa-images"></i>
+                            {{ field.label }}
+                            {% if field.field.required %}<span class="required">*</span>{% endif %}
+                        </label>
+                        <div class="file-upload-area" id="fileUploadArea">
+                            {{ field }}
+                            <div class="file-upload-content">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <h3>Drag & Drop Images Here</h3>
+                                <p>or <span class="file-browse">Browse Files</span></p>
+                                <div class="file-info">Supports: JPG, PNG, WebP (Max 5MB each)</div>
+                            </div>
+                        </div>
+                        <div class="image-preview" id="imagePreview"></div>
+                        {% if field.help_text %}
+                            <div class="form-hint">{{ field.help_text }}</div>
+                        {% endif %}
+                        {% if field.errors %}
+                            <div class="error-message">
+                                <i class="fas fa-exclamation-circle"></i>
+                                {{ field.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <!-- Generic handling for other fields -->
+                    <div class="form-group {% if field.field.widget.input_type == 'checkbox' %}checkbox-field{% elif field.name == 'product_description' %}full-width{% endif %}">
+                        {% if field.field.widget.input_type == 'checkbox' %}
+                            <div class="checkbox-group">
+                                <label class="checkbox-label" for="{{ field.id_for_label }}">
+                                    {{ field }}
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-text">
+                                        <i class="fas fa-check"></i>
+                                        {{ field.label }}
+                                        {% if field.field.required %}<span class="required">*</span>{% endif %}
+                                    </span>
+                                </label>
+                            </div>
+                        {% else %}
+                            <label for="{{ field.id_for_label }}" class="form-label">
+                                <i class="fas {% if field.name == 'product_name' %}fa-tag{% elif field.name == 'product_description' %}fa-align-left{% elif field.name == 'price' %}fa-dollar-sign{% elif field.name == 'stock' %}fa-boxes{% elif field.name == 'category' %}fa-list{% elif field.name == 'slug' %}fa-link{% else %}fa-cog{% endif %}"></i>
+                                {{ field.label }}
+                                {% if field.field.required %}<span class="required">*</span>{% endif %}
+                            </label>
+                            {{ field }}
+                        {% endif %}
+                        {% if field.help_text %}
+                            <div class="form-hint">{{ field.help_text }}</div>
+                        {% endif %}
+                        {% if field.errors %}
+                            <div class="error-message">
+                                <i class="fas fa-exclamation-circle"></i>
+                                {{ field.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                <i class="fas fa-undo"></i>
+                Reset Form
+            </button>
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+                <i class="fas fa-plus"></i>
+                <span class="btn-text">Add Product</span>
+                <span class="btn-loader"><i class="fas fa-spinner fa-spin"></i></span>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script src="{% static 'js/product-form.js' %}"></script>
+{% endblock content %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link href="{% static 'css/product-form.css' %}" rel="stylesheet" type="text/css"/>
+
+<div class="form-container">
+    <h1>Update Product</h1>
+
+    <form method="post" enctype="multipart/form-data" class="product-form" id="productForm">
+        {% csrf_token %}
+        
+        <div class="form-grid">
+            {% for field in form %}
+                <div class="form-group {% if field.name == 'images' or field.name == 'product_name' %}full-width{% endif %}">
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                        {% if field.field.required %}<span class="required">*</span>{% endif %}
+                    </label>
+                    {% if field.name == 'images' %}
+                        <div class="file-upload-area">
+                            {{ field }}
+                            <div class="file-upload-content">
+                                <p>Drag & Drop or <span class="file-browse">Browse</span></p>
+                            </div>
+                        </div>
+                        <div class="image-preview" id="imagePreview">
+                            {% for image in product.images.all %}
+                                <div class="existing-image">
+                                    <img src="{{ image.image.url }}" alt="Image">
+                                    <button type="button" class="remove-image" data-image-id="{{ image.id }}">Remove</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
+                    {% if field.errors %}
+                        <div class="error-message">{{ field.errors.0 }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="form-actions">
+            <button type="button" onclick="window.location.href='{% url 'vendor_dashboard' %}'">Cancel</button>
+            <button type="submit">Update</button>
+        </div>
+    </form>
+</div>
+
+<script src="{% static 'js/product-form.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('productForm');
+    if (form) {
+        form.addEventListener('submit', function() {
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.classList.add('loading');
+        });
+    }
+});
+</script>
+{% endblock %}
