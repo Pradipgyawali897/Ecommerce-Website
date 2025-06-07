@@ -2,8 +2,10 @@
 from django.db import models
 from category.models import Category
 from django.urls import reverse
+from django.conf import settings
 
 class Product(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     product_name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     product_description = models.TextField(null=True, blank=True)
