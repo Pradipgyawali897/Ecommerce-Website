@@ -1,2 +1,2 @@
-Django 
-pillowpython-decouple
+django
+pillow
