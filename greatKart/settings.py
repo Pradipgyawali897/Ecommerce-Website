@@ -143,23 +143,3 @@ MESSAGE_TAGS = {
     messages.SUCCESS:"sucess",
     60:"Sucess"
 }
-#smtp verification
-import environ
-
-# Initialize environment variables
-env = environ.Env(
-    # Define defaults and casting (optional)
-    EMAIL_HOST_USER=(str, 'default-email@gmail.com'),
-    EMAIL_HOST_PASSWORD=(str, ''),
-)
-
-# Read .env file (if it exists)
-environ.Env.read_env()  # Looks for .env in the project root by default
-
-# SMTP Configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = True
