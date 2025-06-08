@@ -349,9 +349,12 @@ function showInfo(message, title = null) {
 
 </head>
 <body>
+{% if request.user.role != 'vendor' %}
 {% include "includes/nav_bar.html" %}
+{% else %}
+{% include "includes/vendor_nav_bar.html" %}
+{% endif %}
 {% block content %}
-
 {% endblock content %}
 {% include "includes/footer.html" %}
 
