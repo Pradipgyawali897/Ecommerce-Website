@@ -1,0 +1,87 @@
+{% load static %}
+<header class="section-header">
+    <nav class="navbar p-md-0 navbar-expand-sm navbar-light border-bottom">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTopVendor" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTopVendor">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link"> English </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link"> USD </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li><a href="#" class="nav-link"> <i class="fa fa-envelope"></i> Support </a></li>
+                    <li><a href="#" class="nav-link"> <i class="fa fa-phone"></i> Help </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="header-main border-bottom">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-2 col-md-3 col-6">
+                    <a href="#" class="brand-wrap">
+                        <img class="logo" src="{% static 'images/logo.png' %}">
+                    </a>
+                </div>
+                <div class="col-lg col-sm col-md col-6 flex-grow-0">
+                    <div class="category-wrap dropdown d-inline-block float-right">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-cog"></i> Vendor Panel
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#"><i class="fa fa-dashboard"></i> Dashboard</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-plus"></i> Add Product</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-list"></i> My Products</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-shopping-cart"></i> Orders</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-bar-chart"></i> Analytics</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-users"></i> Customers</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-cog"></i> Settings</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-outline-primary">My Store</a>
+                <div class="col-lg col-md-6 col-sm-12 col">
+                    <form action="#" class="search">
+                        <div class="input-group w-100">
+                            <input type="text" class="form-control" style="width:60%;" placeholder="Search products, orders..." name="q">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
+                    <div class="widget-header" style="text-align: left;">
+                        {% if not user.is_authenticated %}
+                            <h4 class="title text-muted">Welcome vendor!</h4>
+                            <div style="margin-top: 10px;">
+                                <a href="#" class="btn btn-primary">Vendor Login</a>
+                                <a href="#" class="btn btn-outline-primary">Register</a>
+                            </div>
+                        {% else %}
+                            <h5 class="title text-muted">Welcome, {{ user.username }}!</h5>
+                            <small class="text-primary"><i class="fa fa-store"></i> Vendor Account</small>
+                            <div style="margin-top: 10px;">
+                                <a href="#" class="btn btn-sm btn-outline-primary">Account</a>
+                                <form action="#" method="GET" style="display: inline-block;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-primary">Logout</button>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</header>
