@@ -14,8 +14,7 @@
 
 <h2>🚧 Features to be Added</h2>
 <ul>
-  <li><strong>Merchant Registration & Dashboard:</strong> Separate login and dashboard for sellers to manage their store.</li>
-  <li><strong>Product Management:</strong> Merchants will be able to add, edit, and delete their own products.</li>
+
   <li><strong>Order Management for Merchants:</strong> View incoming orders, update delivery status, and handle returns.</li>
   <li><strong>Sales Analytics:</strong> A dashboard with charts and stats for product views, sales, and performance tracking.</li>
   <li><strong>Inventory Control:</strong> Auto-update inventory when an order is placed or stock is low.</li>
