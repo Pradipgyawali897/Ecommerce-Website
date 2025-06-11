@@ -4,6 +4,8 @@ from django.contrib.auth import login,logout,authenticate
 from .forms import RegistrationForm
 from django.contrib import messages
 
+from django.core.mail import send_mail
+from django.conf import settings
 #verification dependencies
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -70,3 +72,6 @@ def logout_view(request):
 
 def activate(request):
     return 
+
+
+

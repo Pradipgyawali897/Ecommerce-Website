@@ -14,3 +14,4 @@ src/
 media
 work ito do.txt
 .pyc
+.env
