@@ -49,7 +49,7 @@
                 </div>
                 <a href="#" class="btn btn-outline-primary">My Store</a>
                 <div class="col-lg col-md-6 col-sm-12 col">
-                    <form action="#" class="search">
+                    <form action=" " class="search" method="POST">
                         <div class="input-group w-100">
                             <input type="text" class="form-control" style="width:60%;" placeholder="Search products, orders..." name="q">
                             <div class="input-group-append">
@@ -65,15 +65,15 @@
                         {% if not user.is_authenticated %}
                             <h4 class="title text-muted">Welcome vendor!</h4>
                             <div style="margin-top: 10px;">
-                                <a href="#" class="btn btn-primary">Vendor Login</a>
-                                <a href="#" class="btn btn-outline-primary">Register</a>
+                                <a href="{% url 'login' %}" class="btn btn-primary">Vendor Login</a>
+                                <a href="register" class="btn btn-outline-primary">Register</a>
                             </div>
                         {% else %}
                             <h5 class="title text-muted">Welcome, {{ user.username }}!</h5>
                             <small class="text-primary"><i class="fa fa-store"></i> Vendor Account</small>
                             <div style="margin-top: 10px;">
                                 <a href="#" class="btn btn-sm btn-outline-primary">Account</a>
-                                <form action="#" method="GET" style="display: inline-block;">
+                                <form action="{% url 'logout' %}" method="GET" style="display: inline-block;">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-sm btn-primary">Logout</button>
                                 </form>

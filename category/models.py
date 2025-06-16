@@ -10,4 +10,14 @@ class Category(models.Model):
         verbose_name_plural="cateogries"
     def __str__(self):
         return self.slug
+
+class Vendor_Pannel_Category(models.Model):
+    name=models.CharField(max_length=50,unique=True)
+    slug=models.SlugField(max_length=50)
+    class Meta:
+        verbose_name="Vendor category"
+        verbose_name_plural="Vendor categories"
+    
+    def __str__(self):
+        return self.name
     

@@ -5,12 +5,19 @@ from django.contrib import messages
 from store.models import Product
 from  django.shortcuts import get_object_or_404
 
+from django.db.models import Q
 @vendor_required
 def retrive_view(request):
-    obj=Product.objects.filter(user__exact=request.user)
-    no=obj.count()
-    return render(request,'vendor/index.html',context={'products':obj,"no":no})
-
+    if request.method == "POST":
+        q = request.POST.get('q', '')
+        obj = Product.objects.filter(
+            Q(product_name__icontains=q) |
+            Q(product_description__icontains=q)
+        ).filter(user=request.user)
+    else:
+        obj = Product.objects.filter(user=request.user)
+    no = obj.count()
+    return render(request, 'vendor/index.html', context={'products': obj, 'no': no})
 
 @vendor_required
 def create_view(request):

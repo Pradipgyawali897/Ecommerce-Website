@@ -71,7 +71,7 @@ def logout_view(request):
     return render(request,'accounts/logout.html')
 
 def activate(request):
-    return 
+    pass
 
 
 
